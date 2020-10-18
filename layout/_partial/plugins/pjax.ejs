@@ -1,0 +1,59 @@
+<% if (theme.pjax && theme.pjax.enable){ %>
+  <%- js_ex(theme.static_prefix.pjax, 'pjax.min.js') %>
+
+  <script defer>
+    var pjax = new Pjax({
+      elements: 'a',
+      selectors: [
+        'head title',
+        'header',
+        'main > .container',
+        'main > .container-fluid #board',
+        'footer .statistics',
+        '#comments',
+        '.pjax'
+      ],
+      cacheBust: false,
+    });
+
+    window.addEventListener('pjax:send', function() {
+      window.NProgress && window.NProgress.start();
+    });
+
+    window.addEventListener('pjax:complete', function() {
+      window.onload && window.onload();
+      window.tocbot && window.tocbot.refresh();
+      window.NProgress && window.NProgress.done();
+    });
+
+    window.addEventListener('pjax:success', () => {
+      document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+        var code = element.text || element.textContent || element.innerHTML || '';
+        var parent = element.parentNode;
+        parent.removeChild(element);
+        var script = document.createElement('script');
+        if (element.id) {
+          script.id = element.id;
+        }
+        if (element.className) {
+          script.className = element.className;
+        }
+        if (element.type) {
+          script.type = element.type;
+        }
+        if (element.src) {
+          script.src = element.src;
+          // Force synchronous loading of peripheral JS.
+          script.async = false;
+        }
+        if (element.dataset.pjax !== undefined) {
+          script.dataset.pjax = '';
+        }
+        if (code !== '') {
+          script.appendChild(document.createTextNode(code));
+        }
+        parent.appendChild(script);
+      });
+    });
+  </script>
+<% } %>

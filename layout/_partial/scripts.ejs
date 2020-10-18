@@ -1,17 +1,18 @@
+<%- partial('_partial/plugins/nprogress.ejs') %>
 <%- js_ex(theme.static_prefix.jquery, 'jquery.min.js') %>
 <%- js_ex(theme.static_prefix.bootstrap, 'js/bootstrap.min.js') %>
 <%- js_ex(theme.static_prefix.internal_js, 'debouncer.js') %>
-<%- js_ex(theme.static_prefix.internal_js, 'main.js') %>
+<%- js_ex(theme.static_prefix.internal_js, 'main.js', pjax) %>
 
 <!-- Plugins -->
 
 <% if (theme.lazyload.enable){ %>
   <% if (theme.lazyload.onlypost) { %>
     <% if (is_post() || is_page()) { %>
-      <%- js_ex(theme.static_prefix.internal_js, 'lazyload.js') %>
+      <%- js_ex(theme.static_prefix.internal_js, 'lazyload.js', pjax) %>
     <% } %>
   <% } else { %>
-    <%- js_ex(theme.static_prefix.internal_js, 'lazyload.js') %>
+    <%- js_ex(theme.static_prefix.internal_js, 'lazyload.js', pjax) %>
   <% }%>
 <% } %>
 
@@ -55,3 +56,4 @@
 <%- partial('_partial/plugins/math.ejs') %>
 <%- partial('_partial/plugins/mermaid.ejs') %>
 <%- partial('_partial/plugins/analytics.ejs') %>
+<%- partial('_partial/plugins/pjax.ejs') %>

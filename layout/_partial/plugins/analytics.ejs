@@ -2,7 +2,7 @@
 
   <% if(theme.web_analytics.baidu) { %>
     <!-- Baidu Analytics -->
-    <script defer>
+    <script defer <%= pjax %>>
       var _hmt = _hmt || [];
       (function () {
         var hm = document.createElement("script");
@@ -15,7 +15,7 @@
 
   <% if (theme.web_analytics.google){ %>
     <!-- Google Analytics -->
-    <script defer>
+    <script defer <%= pjax %>>
       window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
       ga.l = +new Date;
       ga('create', '<%= theme.web_analytics.google %>', 'auto');
@@ -26,8 +26,8 @@
 
   <% if (theme.web_analytics.gtag){ %>
     <!-- Google gtag.js -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=<%- theme.web_analytics.gtag %>"></script>
-    <script defer>
+    <script async <%= pjax %> src="https://www.googletagmanager.com/gtag/js?id=<%- theme.web_analytics.gtag %>"></script>
+    <script defer <%= pjax %>>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
@@ -37,7 +37,7 @@
 
   <% if(theme.web_analytics.tencent && theme.web_analytics.tencent.sid && theme.web_analytics.tencent.cid) { %>
     <!-- Tencent Analytics -->
-    <script defer>
+    <script defer <%= pjax %>>
       var _mtac = {};
       (function () {
         var mta = document.createElement("script");
@@ -55,12 +55,12 @@
 
   <% if(theme.web_analytics.woyaola) { %>
     <!-- 51.la Analytics -->
-    <script defer type="text/javascript" src="//js.users.51.la/<%= theme.web_analytics.woyaola %>.js"></script>
+    <script defer <%= pjax %> type="text/javascript" src="//js.users.51.la/<%= theme.web_analytics.woyaola %>.js"></script>
   <% } %>
 
   <% if(theme.web_analytics.cnzz) { %>
     <!-- cnzz Analytics -->
-    <script defer src="//s4.cnzz.com/z_stat.php?id=<%- theme.web_analytics.cnzz %>&show=pic"
+    <script defer <%= pjax %> src="//s4.cnzz.com/z_stat.php?id=<%- theme.web_analytics.cnzz %>&show=pic"
             type="text/javascript"></script>
   <% } %>
 <% } %>
